@@ -1,0 +1,83 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+
+```{r}
+setwd("C:/Users/Eduardo/Desktop/UFRJ/IC/leituras/datasets/ALL CSV FILES - 2nd Edition")
+college = read.csv("College.csv")
+rownames (college )=college [,1]
+fix (college )
+```
+
+```{r}
+college =college [,-1]
+fix (college )
+```
+
+```{r}
+summary(college)
+```
+```{r}
+attach(college)
+
+pairs(college[,2:10])
+```
+```{r}
+Private = as.factor(Private)
+plot(Private, Outstate, xlab="Private", ylab="Outstate")
+```
+```{r}
+Elite =rep ("No",nrow(college ))
+Elite [college$Top10perc >50]=" Yes"
+Elite =as.factor (Elite)
+college =data.frame(college ,Elite)
+```
+
+```{r}
+summary(college)
+```
+
+```{r}
+plot(Elite,Outstate,xlab="Elite",ylab="Outstate")
+```
+```{r}
+par(mfrow=c(2,3))
+hist(PhD, col=2, breaks=20)
+hist(Grad.Rate,col=2, breaks=15)
+hist(Top10perc,col=2, breaks=15)
+hist(F.Undergrad, col=2, breaks=15)
+hist(Books, col=2, breaks=15)
+hist(Top25perc, col=2, breaks=15)
+```
+```{r}
+UltraElite =rep ("No",nrow(college ))
+UltraElite [college$Top10perc >90]=" Yes"
+UltraElite =as.factor (UltraElite)
+AcceptRate= Accept/Apps
+college =data.frame(college ,AcceptRate, UltraElite)
+college
+```
+```{r}
+hist(AcceptRate, col=2, breaks=15)
+```
+```{r}
+length(AcceptRate)
+length(Grad.Rate)
+```
+
+```{r}
+college=na.omit(college)
+par(mfrow=c(2,3))
+plot(Elite, Grad.Rate,xlab="Elite", ylab="Graduation rate")
+plot(UltraElite, Grad.Rate, xlab="Ultra Elite", ylab="Graduation rate")
+plot(UltraElite, Expend, xlab="Ultra Elite", ylab="Expends per student")
+plot(UltraElite, Apps,xlab="Ultra Elite",ylab="Applications Received")
+
+plot(UltraElite, AcceptRate,xlab="Ultra Elite",ylab="Accepted Appl. %")
+plot(Elite, AcceptRate,xlab="Elite",ylab="Accepted Appl. %")
+```
+
+
